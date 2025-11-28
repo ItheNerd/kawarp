@@ -1,3 +1,5 @@
+<img width="1920" height="1280" alt="banner" src="https://github.com/user-attachments/assets/4da80505-fbd2-4f3f-ac48-5748793cec84" />
+
 # Kawarp
 
 Fluid animated background renderer using WebGL, Kawase blur, and domain warping. Creates effects similar to Apple Music's album art visualization.

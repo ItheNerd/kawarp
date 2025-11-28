@@ -1,5 +1,16 @@
 # @kawarp/react
 
+## 1.0.0
+
+### Major Changes
+
+- 73d9c7f: feat: dithering, perfomance optimization, tint
+
+### Patch Changes
+
+- Updated dependencies [73d9c7f]
+  - @kawarp/core@1.0.0
+
 ## 0.1.1
 
 ### Patch Changes

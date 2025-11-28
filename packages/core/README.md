@@ -29,6 +29,9 @@ kawarp.start();
 | `animationSpeed` | number | 1.0 | Animation speed multiplier |
 | `transitionDuration` | number | 1000 | Crossfade duration in ms |
 | `saturation` | number | 1.5 | Color saturation multiplier |
+| `tintColor` | [r, g, b] | [0.16, 0.16, 0.24] | Tint color for dark areas (0-1) |
+| `tintIntensity` | number | 0.15 | Tint effect strength (0-1) |
+| `dithering` | number | 0.008 | Dithering strength (0-0.1) |
 
 ## Methods
 

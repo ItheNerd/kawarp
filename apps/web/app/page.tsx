@@ -30,7 +30,7 @@ export default function Home() {
       onDrop={handleDrop}
     >
       <motion.div
-        className="fixed inset-0 -z-10"
+        className="fixed inset-0 -z-10 kawarp-container"
         initial={{ opacity: 0 }}
         animate={{ opacity: state.isLoaded ? 1 : 0 }}
         transition={{ duration: 0.5 }}
@@ -43,6 +43,9 @@ export default function Home() {
           animationSpeed={state.animationSpeed}
           transitionDuration={state.transitionDuration}
           saturation={state.saturation}
+          tintColor={state.tintColor}
+          tintIntensity={state.tintIntensity}
+          dithering={state.dithering}
           onLoad={() => updateState("isLoaded", true)}
           style={{ width: "100%", height: "100%" }}
         />
@@ -88,17 +91,25 @@ export default function Home() {
           animationSpeed={state.animationSpeed}
           onAnimationSpeedChange={(v) => updateState("animationSpeed", v)}
           transitionDuration={state.transitionDuration}
-          onTransitionDurationChange={(v) => updateState("transitionDuration", v)}
+          onTransitionDurationChange={(v) =>
+            updateState("transitionDuration", v)
+          }
           saturation={state.saturation}
           onSaturationChange={(v) => updateState("saturation", v)}
+          tintColor={state.tintColor}
+          onTintColorChange={(v) => updateState("tintColor", v)}
+          tintIntensity={state.tintIntensity}
+          onTintIntensityChange={(v) => updateState("tintIntensity", v)}
+          dithering={state.dithering}
+          onDitheringChange={(v) => updateState("dithering", v)}
         />
 
-        <main className="relative flex min-h-[85vh] items-end justify-start p-6">
+        <main className="relative flex min-h-[95vh] items-end justify-end p-6">
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.3 }}
-            className="max-w-xs text-sm text-white/40"
+            className="max-w-xs text-right text-sm text-white/40"
           >
             Fluid animated backgrounds powered by WebGL, Kawase blur & domain
             warping.

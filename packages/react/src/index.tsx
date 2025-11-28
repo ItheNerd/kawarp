@@ -6,6 +6,7 @@ import {
   useCallback,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
 } from "react";
 
@@ -109,6 +110,9 @@ export const Kawarp = forwardRef<KawarpRef, KawarpProps>(function Kawarp(
     animationSpeed,
     transitionDuration,
     saturation,
+    tintColor,
+    tintIntensity,
+    dithering,
   },
   ref,
 ) {
@@ -155,6 +159,9 @@ export const Kawarp = forwardRef<KawarpRef, KawarpProps>(function Kawarp(
       animationSpeed,
       transitionDuration,
       saturation,
+      tintColor,
+      tintIntensity,
+      dithering,
     });
     kawarpRef.current = kawarp;
     initializedRef.current = true;
@@ -200,6 +207,13 @@ export const Kawarp = forwardRef<KawarpRef, KawarpProps>(function Kawarp(
     }
   }, [src, onLoad, onError]);
 
+  // Memoize tintColor to prevent unnecessary updates
+  const stableTintColor = useMemo(
+    () => tintColor,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tintColor?.[0], tintColor?.[1], tintColor?.[2]],
+  );
+
   // Update options when props change
   useEffect(() => {
     kawarpRef.current?.setOptions({
@@ -208,28 +222,39 @@ export const Kawarp = forwardRef<KawarpRef, KawarpProps>(function Kawarp(
       animationSpeed,
       transitionDuration,
       saturation,
+      tintColor: stableTintColor,
+      tintIntensity,
+      dithering,
     });
-  }, [warpIntensity, blurPasses, animationSpeed, transitionDuration, saturation]);
+  }, [warpIntensity, blurPasses, animationSpeed, transitionDuration, saturation, stableTintColor, tintIntensity, dithering]);
 
-  // Handle resize with ResizeObserver
+  // Handle resize with ResizeObserver (debounced, with devicePixelRatio)
   useEffect(() => {
     const container = containerRef.current;
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
 
+    let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
+
     const updateSize = () => {
       const rect = container.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
+      canvas.width = Math.round(rect.width);
+      canvas.height = Math.round(rect.height);
       kawarpRef.current?.resize();
     };
 
-    const resizeObserver = new ResizeObserver(updateSize);
+    const debouncedUpdateSize = () => {
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(updateSize, 100);
+    };
+
+    const resizeObserver = new ResizeObserver(debouncedUpdateSize);
     resizeObserver.observe(container);
     updateSize();
 
     return () => {
       resizeObserver.disconnect();
+      if (resizeTimeout) clearTimeout(resizeTimeout);
     };
   }, []);
 

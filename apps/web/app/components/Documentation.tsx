@@ -42,6 +42,24 @@ const OPTIONS = [
     default: "1.5",
     desc: "Color saturation multiplier",
   },
+  {
+    name: "tintColor",
+    type: "[r, g, b]",
+    default: "[0.16, 0.16, 0.24]",
+    desc: "Tint color for dark areas (0-1)",
+  },
+  {
+    name: "tintIntensity",
+    type: "number",
+    default: "0.15",
+    desc: "Tint effect strength (0-1)",
+  },
+  {
+    name: "dithering",
+    type: "number",
+    default: "0.008",
+    desc: "Dithering strength (0-0.1)",
+  },
 ];
 
 const QUICK_START_CODE = `import { Kawarp } from '@kawarp/core';
@@ -141,9 +159,19 @@ export function Documentation() {
   return (
     <section className="relative z-10 border-t border-white/10 bg-zinc-950/90 backdrop-blur-xl">
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
-        <h2 className="mb-12 text-3xl font-semibold tracking-tight text-white">
+        <h2 className="mb-6 text-3xl font-semibold tracking-tight text-white">
           Documentation
         </h2>
+
+        <p className="mb-12 text-zinc-400 leading-relaxed">
+          Kawarp is a WebGL-powered library for creating fluid, animated
+          background effects similar to Apple Music&apos;s album art
+          visualization. It uses Kawase blur for efficient, high-quality
+          blurring and simplex noise-based domain warping for organic motion.
+          The library is optimized for performance with blur operations running
+          on small textures only when the image changes, while per-frame
+          rendering is minimal.
+        </p>
 
         <div className="space-y-12">
           <div>
@@ -205,8 +233,8 @@ export function Documentation() {
                   useKawarp Hook
                 </h3>
                 <p className="mb-4 text-sm text-zinc-400">
-                  For imperative control, use the useKawarp hook to load images
-                  dynamically without ref drilling.
+                  For operations that can&apos;t be done via props—like loading
+                  from files, blobs, or gradients—use the useKawarp hook.
                 </p>
                 <CodeBlock code={REACT_HOOK_CODE} />
               </div>

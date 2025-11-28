@@ -13,6 +13,9 @@ export interface KawarpDemoState {
   animationSpeed: number;
   transitionDuration: number;
   saturation: number;
+  tintColor: [number, number, number];
+  tintIntensity: number;
+  dithering: number;
   isDragging: boolean;
   panelOpen: boolean;
 }
@@ -29,6 +32,9 @@ export function useKawarpDemo() {
     animationSpeed: 1.0,
     transitionDuration: 1000,
     saturation: 1.5,
+    tintColor: [0.157, 0.157, 0.235],
+    tintIntensity: 0.15,
+    dithering: 0.008,
     isDragging: false,
     panelOpen: false,
   });

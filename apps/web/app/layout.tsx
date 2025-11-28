@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Kawarp",
   description: "Fluid animated background renderer",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

@@ -25,6 +25,37 @@ interface ControlPanelProps {
   onTransitionDurationChange: (value: number) => void;
   saturation: number;
   onSaturationChange: (value: number) => void;
+  tintColor: [number, number, number];
+  onTintColorChange: (value: [number, number, number]) => void;
+  tintIntensity: number;
+  onTintIntensityChange: (value: number) => void;
+  dithering: number;
+  onDitheringChange: (value: number) => void;
+}
+
+function rgbToHex(rgb: [number, number, number]): string {
+  return (
+    "#" +
+    rgb
+      .map((v) =>
+        Math.round(v * 255)
+          .toString(16)
+          .padStart(2, "0")
+      )
+      .join("")
+  );
+}
+
+function hexToRgb(hex: string): [number, number, number] {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if (!result || !result[1] || !result[2] || !result[3]) {
+    return [0.157, 0.157, 0.235];
+  }
+  return [
+    parseInt(result[1], 16) / 255,
+    parseInt(result[2], 16) / 255,
+    parseInt(result[3], 16) / 255,
+  ];
 }
 
 export function ControlPanel({
@@ -47,6 +78,12 @@ export function ControlPanel({
   onTransitionDurationChange,
   saturation,
   onSaturationChange,
+  tintColor,
+  onTintColorChange,
+  tintIntensity,
+  onTintIntensityChange,
+  dithering,
+  onDitheringChange,
 }: ControlPanelProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -74,13 +111,16 @@ export function ControlPanel({
               animate={{ opacity: 1, x: 0, filter: "blur(0px)", scale: 1 }}
               exit={{ opacity: 0, x: 8, filter: "blur(8px)", scale: 0.95 }}
               transition={{ duration: 0.15 }}
-              className="w-72 rounded-2xl border border-white/5 bg-zinc-950/90 p-4 shadow-2xl backdrop-blur-md origin-right"
+              className="w-80 md:w-[480px] max-h-[85vh] overflow-y-auto rounded-2xl border border-white/5 bg-zinc-950/90 p-4 shadow-2xl backdrop-blur-md origin-right"
+              onDragOver={(e) => e.stopPropagation()}
+              onDragLeave={(e) => e.stopPropagation()}
+              onDrop={(e) => e.stopPropagation()}
             >
               <div className="mb-5">
                 <span className="mb-3 block text-xs text-zinc-500 font-semibold">
                   Presets
                 </span>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
                   {PRESETS.map((preset, i) => (
                     <motion.button
                       key={preset.name}
@@ -111,7 +151,7 @@ export function ControlPanel({
                 <span className="mb-4 block text-xs text-zinc-500 font-semibold">
                   Parameters
                 </span>
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <div className="mb-1.5 flex items-center justify-between">
                       <span className="text-xs text-zinc-200">Warp</span>
@@ -203,6 +243,57 @@ export function ControlPanel({
                       value={saturation}
                       onChange={(e) =>
                         onSaturationChange(Number(e.target.value))
+                      }
+                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                    />
+                  </div>
+                  <div>
+                    <div className="mb-1.5 flex items-center justify-between">
+                      <span className="text-xs text-zinc-200">Tint</span>
+                      <div className="flex items-center gap-2">
+                        <label
+                          className="block h-4 w-4 cursor-pointer rounded-full border border-white/20"
+                          style={{ backgroundColor: rgbToHex(tintColor) }}
+                        >
+                          <input
+                            type="color"
+                            value={rgbToHex(tintColor)}
+                            onChange={(e) => onTintColorChange(hexToRgb(e.target.value))}
+                            className="sr-only"
+                          />
+                        </label>
+                        <span className="text-xs tabular-nums text-zinc-500">
+                          {(tintIntensity * 100).toFixed(0)}%
+                        </span>
+                      </div>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value={tintIntensity}
+                      onChange={(e) =>
+                        onTintIntensityChange(Number(e.target.value))
+                      }
+                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                    />
+                  </div>
+                  <div>
+                    <div className="mb-1.5 flex items-center justify-between">
+                      <span className="text-xs text-zinc-200">Dither</span>
+                      <span className="text-xs tabular-nums text-zinc-500">
+                        {(dithering * 1000).toFixed(1)}
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="0.1"
+                      step="0.001"
+                      value={dithering}
+                      onChange={(e) =>
+                        onDitheringChange(Number(e.target.value))
                       }
                       className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
                     />

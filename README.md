@@ -2,6 +2,10 @@
 
 # Kawarp
 
+[![npm version](https://img.shields.io/npm/v/@kawarp/core?style=flat&colorA=18181B&colorB=28CF8D)](https://www.npmjs.com/package/@kawarp/core)
+[![npm downloads](https://img.shields.io/npm/dm/@kawarp/core?style=flat&colorA=18181B&colorB=28CF8D)](https://www.npmjs.com/package/@kawarp/core)
+[![License](https://img.shields.io/github/license/better-lyrics/kawarp?style=flat&colorA=18181B&colorB=28CF8D)](./LICENSE)
+
 Fluid animated background renderer using WebGL, Kawase blur, and domain warping. Creates effects similar to Apple Music's album art visualization.
 
 ## Packages

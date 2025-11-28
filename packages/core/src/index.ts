@@ -61,7 +61,7 @@ const KAWASE_BLUR_SHADER = `
 
 // Blend shader for crossfading between two textures
 const BLEND_SHADER = `
-  precision mediump float;
+  precision highp float;
   uniform sampler2D u_texture1;
   uniform sampler2D u_texture2;
   uniform float u_blend;
@@ -76,7 +76,7 @@ const BLEND_SHADER = `
 
 // Tint shader - applies color to dark areas before blur
 const TINT_SHADER = `
-  precision mediump float;
+  precision highp float;
   uniform sampler2D u_texture;
   uniform vec3 u_tintColor;
   uniform float u_tintIntensity;
@@ -97,7 +97,7 @@ const TINT_SHADER = `
 `;
 
 const DOMAIN_WARP_SHADER = `
-  precision mediump float;
+  precision highp float;
   uniform sampler2D u_texture;
   uniform float u_time;
   uniform float u_intensity;

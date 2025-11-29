@@ -16,6 +16,7 @@ export interface KawarpDemoState {
   tintColor: [number, number, number];
   tintIntensity: number;
   dithering: number;
+  scale: number;
   isDragging: boolean;
   panelOpen: boolean;
 }
@@ -35,6 +36,7 @@ export function useKawarpDemo() {
     tintColor: [0.157, 0.157, 0.235],
     tintIntensity: 0.15,
     dithering: 0.008,
+    scale: 1.0,
     isDragging: false,
     panelOpen: false,
   });

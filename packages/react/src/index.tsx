@@ -113,6 +113,7 @@ export const Kawarp = forwardRef<KawarpRef, KawarpProps>(function Kawarp(
     tintColor,
     tintIntensity,
     dithering,
+    scale,
   },
   ref,
 ) {
@@ -162,6 +163,7 @@ export const Kawarp = forwardRef<KawarpRef, KawarpProps>(function Kawarp(
       tintColor,
       tintIntensity,
       dithering,
+      scale,
     });
     kawarpRef.current = kawarp;
     initializedRef.current = true;
@@ -225,6 +227,7 @@ export const Kawarp = forwardRef<KawarpRef, KawarpProps>(function Kawarp(
       tintColor: stableTintColor,
       tintIntensity,
       dithering,
+      scale,
     });
   }, [
     warpIntensity,
@@ -235,6 +238,7 @@ export const Kawarp = forwardRef<KawarpRef, KawarpProps>(function Kawarp(
     stableTintColor,
     tintIntensity,
     dithering,
+    scale,
   ]);
 
   // Handle resize with ResizeObserver (debounced, with devicePixelRatio)

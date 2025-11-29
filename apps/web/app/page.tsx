@@ -46,6 +46,7 @@ export default function Home() {
           tintColor={state.tintColor}
           tintIntensity={state.tintIntensity}
           dithering={state.dithering}
+          scale={state.scale}
           onLoad={() => updateState("isLoaded", true)}
           style={{ width: "100%", height: "100%" }}
         />
@@ -102,6 +103,8 @@ export default function Home() {
           onTintIntensityChange={(v) => updateState("tintIntensity", v)}
           dithering={state.dithering}
           onDitheringChange={(v) => updateState("dithering", v)}
+          scale={state.scale}
+          onScaleChange={(v) => updateState("scale", v)}
         />
 
         <main className="relative flex min-h-[95vh] items-end justify-end p-6">

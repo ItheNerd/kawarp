@@ -60,6 +60,12 @@ const OPTIONS = [
     default: "0.008",
     desc: "Dithering strength (0-0.1)",
   },
+  {
+    name: "scale",
+    type: "number",
+    default: "1.0",
+    desc: "Overall zoom level of the effect (0.01-4)",
+  },
 ];
 
 const QUICK_START_CODE = `import { Kawarp } from '@kawarp/core';

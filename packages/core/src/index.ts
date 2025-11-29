@@ -19,6 +19,7 @@ export interface KawarpOptions {
   tintColor?: [number, number, number];
   tintIntensity?: number;
   dithering?: number;
+  scale?: number;
 }
 
 interface Framebuffer {
@@ -164,6 +165,7 @@ const OUTPUT_SHADER = `
   uniform float u_saturation;
   uniform float u_dithering;
   uniform float u_time;
+  uniform float u_scale;
   uniform vec2 u_resolution;
   varying vec2 v_texCoord;
 
@@ -174,7 +176,10 @@ const OUTPUT_SHADER = `
   }
 
   void main() {
-    vec4 color = texture2D(u_texture, v_texCoord);
+    vec2 uv = (v_texCoord - 0.5) / u_scale + 0.5;
+    uv = clamp(uv, 0.0, 1.0);
+
+    vec4 color = texture2D(u_texture, uv);
 
     vec2 center = v_texCoord - 0.5;
     float vignette = 1.0 - dot(center, center) * 0.3;
@@ -242,6 +247,7 @@ export class Kawarp {
   private _tintColor: [number, number, number];
   private _tintIntensity: number;
   private _dithering: number;
+  private _scale: number;
   private hasImage = false;
 
   // Cached attribute locations
@@ -277,6 +283,7 @@ export class Kawarp {
       saturation: WebGLUniformLocation;
       dithering: WebGLUniformLocation;
       time: WebGLUniformLocation;
+      scale: WebGLUniformLocation;
       resolution: WebGLUniformLocation;
     };
   };
@@ -300,6 +307,7 @@ export class Kawarp {
     this._tintColor = options.tintColor ?? [0.157, 0.157, 0.235];
     this._tintIntensity = options.tintIntensity ?? 0.15;
     this._dithering = options.dithering ?? 0.008;
+    this._scale = options.scale ?? 1.0;
 
     // Create shader programs
     this.blurProgram = this.createProgram(VERTEX_SHADER, KAWASE_BLUR_SHADER);
@@ -344,6 +352,7 @@ export class Kawarp {
         saturation: gl.getUniformLocation(this.outputProgram, "u_saturation")!,
         dithering: gl.getUniformLocation(this.outputProgram, "u_dithering")!,
         time: gl.getUniformLocation(this.outputProgram, "u_time")!,
+        scale: gl.getUniformLocation(this.outputProgram, "u_scale")!,
         resolution: gl.getUniformLocation(this.outputProgram, "u_resolution")!,
       },
     };
@@ -454,6 +463,13 @@ export class Kawarp {
     this._dithering = Math.max(0, Math.min(0.1, value));
   }
 
+  get scale(): number {
+    return this._scale;
+  }
+  set scale(value: number) {
+    this._scale = Math.max(0.01, Math.min(4, value));
+  }
+
   setOptions(options: Partial<KawarpOptions>): void {
     if (options.warpIntensity !== undefined)
       this.warpIntensity = options.warpIntensity;
@@ -467,6 +483,7 @@ export class Kawarp {
     if (options.tintIntensity !== undefined)
       this.tintIntensity = options.tintIntensity;
     if (options.dithering !== undefined) this.dithering = options.dithering;
+    if (options.scale !== undefined) this.scale = options.scale;
   }
 
   getOptions(): Required<KawarpOptions> {
@@ -479,6 +496,7 @@ export class Kawarp {
       tintColor: this._tintColor,
       tintIntensity: this._tintIntensity,
       dithering: this._dithering,
+      scale: this._scale,
     };
   }
 
@@ -795,6 +813,7 @@ export class Kawarp {
       gl.uniform1f(this.uniforms.output.saturation, this._saturation);
       gl.uniform1f(this.uniforms.output.dithering, this._dithering);
       gl.uniform1f(this.uniforms.output.time, time);
+      gl.uniform1f(this.uniforms.output.scale, this._scale);
       gl.uniform2f(this.uniforms.output.resolution, width, height);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
     } else {
@@ -820,6 +839,7 @@ export class Kawarp {
       gl.uniform1f(this.uniforms.output.saturation, this._saturation);
       gl.uniform1f(this.uniforms.output.dithering, this._dithering);
       gl.uniform1f(this.uniforms.output.time, time);
+      gl.uniform1f(this.uniforms.output.scale, this._scale);
       gl.uniform2f(this.uniforms.output.resolution, width, height);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
     }

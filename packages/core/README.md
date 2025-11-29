@@ -32,6 +32,7 @@ kawarp.start();
 | `tintColor` | [r, g, b] | [0.16, 0.16, 0.24] | Tint color for dark areas (0-1) |
 | `tintIntensity` | number | 0.15 | Tint effect strength (0-1) |
 | `dithering` | number | 0.008 | Dithering strength (0-0.1) |
+| `scale` | number | 1.0 | Overall zoom level of the effect (0.01-4) |
 
 ## Methods
 

@@ -31,6 +31,8 @@ interface ControlPanelProps {
   onTintIntensityChange: (value: number) => void;
   dithering: number;
   onDitheringChange: (value: number) => void;
+  scale: number;
+  onScaleChange: (value: number) => void;
 }
 
 function rgbToHex(rgb: [number, number, number]): string {
@@ -84,6 +86,8 @@ export function ControlPanel({
   onTintIntensityChange,
   dithering,
   onDitheringChange,
+  scale,
+  onScaleChange,
 }: ControlPanelProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -297,6 +301,23 @@ export function ControlPanel({
                       onChange={(e) =>
                         onDitheringChange(Number(e.target.value))
                       }
+                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                    />
+                  </div>
+                  <div>
+                    <div className="mb-1.5 flex items-center justify-between">
+                      <span className="text-xs text-zinc-200">Scale</span>
+                      <span className="text-xs tabular-nums text-zinc-500">
+                        {scale.toFixed(2)}
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0.01"
+                      max="4"
+                      step="0.01"
+                      value={scale}
+                      onChange={(e) => onScaleChange(Number(e.target.value))}
                       className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
                     />
                   </div>

@@ -1,5 +1,13 @@
 # @kawarp/react
 
+## 1.1.1
+
+### Patch Changes
+
+- 4a06e77: feat: add scale prop
+- Updated dependencies [4a06e77]
+  - @kawarp/core@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes

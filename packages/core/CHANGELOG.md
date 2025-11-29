@@ -1,5 +1,11 @@
 # @kawarp/core
 
+## 1.1.1
+
+### Patch Changes
+
+- 4a06e77: feat: add scale prop
+
 ## 1.1.0
 
 ### Minor Changes

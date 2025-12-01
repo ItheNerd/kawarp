@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useRef } from "react";
 import { PRESETS } from "../constants";
+import { Slider } from "./Slider";
 
 interface ControlPanelProps {
   isOpen: boolean;
@@ -163,16 +164,12 @@ export function ControlPanel({
                         {warpIntensity?.toFixed(2)}
                       </span>
                     </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.01"
+                    <Slider
+                      min={0}
+                      max={1}
+                      step={0.01}
                       value={warpIntensity}
-                      onChange={(e) =>
-                        onWarpIntensityChange(Number(e.target.value))
-                      }
-                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                      onChange={onWarpIntensityChange}
                     />
                   </div>
                   <div>
@@ -182,16 +179,12 @@ export function ControlPanel({
                         {blurPasses}
                       </span>
                     </div>
-                    <input
-                      type="range"
-                      min="1"
-                      max="40"
-                      step="1"
+                    <Slider
+                      min={1}
+                      max={40}
+                      step={1}
                       value={blurPasses}
-                      onChange={(e) =>
-                        onBlurPassesChange(Number(e.target.value))
-                      }
-                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                      onChange={onBlurPassesChange}
                     />
                   </div>
                   <div>
@@ -201,16 +194,12 @@ export function ControlPanel({
                         {animationSpeed.toFixed(1)}×
                       </span>
                     </div>
-                    <input
-                      type="range"
-                      min="0.1"
-                      max="3"
-                      step="0.1"
+                    <Slider
+                      min={0.1}
+                      max={3}
+                      step={0.1}
                       value={animationSpeed}
-                      onChange={(e) =>
-                        onAnimationSpeedChange(Number(e.target.value))
-                      }
-                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                      onChange={onAnimationSpeedChange}
                     />
                   </div>
                   <div>
@@ -220,16 +209,12 @@ export function ControlPanel({
                         {(transitionDuration / 1000).toFixed(1)}s
                       </span>
                     </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max="3000"
-                      step="100"
+                    <Slider
+                      min={0}
+                      max={3000}
+                      step={100}
                       value={transitionDuration}
-                      onChange={(e) =>
-                        onTransitionDurationChange(Number(e.target.value))
-                      }
-                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                      onChange={onTransitionDurationChange}
                     />
                   </div>
                   <div>
@@ -239,16 +224,12 @@ export function ControlPanel({
                         {saturation.toFixed(2)}
                       </span>
                     </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max="3"
-                      step="0.05"
+                    <Slider
+                      min={0}
+                      max={3}
+                      step={0.05}
                       value={saturation}
-                      onChange={(e) =>
-                        onSaturationChange(Number(e.target.value))
-                      }
-                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                      onChange={onSaturationChange}
                     />
                   </div>
                   <div>
@@ -273,16 +254,12 @@ export function ControlPanel({
                         </span>
                       </div>
                     </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.01"
+                    <Slider
+                      min={0}
+                      max={1}
+                      step={0.01}
                       value={tintIntensity}
-                      onChange={(e) =>
-                        onTintIntensityChange(Number(e.target.value))
-                      }
-                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                      onChange={onTintIntensityChange}
                     />
                   </div>
                   <div>
@@ -292,16 +269,12 @@ export function ControlPanel({
                         {(dithering * 1000).toFixed(1)}
                       </span>
                     </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max="0.1"
-                      step="0.001"
+                    <Slider
+                      min={0}
+                      max={0.1}
+                      step={0.001}
                       value={dithering}
-                      onChange={(e) =>
-                        onDitheringChange(Number(e.target.value))
-                      }
-                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                      onChange={onDitheringChange}
                     />
                   </div>
                   <div>
@@ -311,14 +284,12 @@ export function ControlPanel({
                         {scale.toFixed(2)}
                       </span>
                     </div>
-                    <input
-                      type="range"
-                      min="0.01"
-                      max="4"
-                      step="0.01"
+                    <Slider
+                      min={0.01}
+                      max={4}
+                      step={0.01}
                       value={scale}
-                      onChange={(e) => onScaleChange(Number(e.target.value))}
-                      className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-white"
+                      onChange={onScaleChange}
                     />
                   </div>
                 </div>

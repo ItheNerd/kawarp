@@ -113,16 +113,10 @@ import { NgClass } from '@angular/common';
     </div>
   `,
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent  {
   readonly store = inject(KawarpDemoStore);
   private readonly kawarp = viewChild<KawarpComponent>('kawarp');
   readonly initialSrc = PRESETS[0].url;
-
-  ngAfterViewInit() {
-    console.log('HomeComponent initialized');
-    console.log('Initial source:', this.initialSrc);
-    console.log('Kawarp component:', this.kawarp());
-  }
 
   constructor() {
     fromEvent<ClipboardEvent>(document, 'paste')
@@ -143,7 +137,6 @@ export class HomeComponent implements AfterViewInit {
   }
 
   onKawarpLoaded() {
-    console.log('Kawarp background loaded successfully');
     this.store.setLoaded(true);
   }
 

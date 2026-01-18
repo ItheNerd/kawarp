@@ -278,11 +278,12 @@ export function Documentation() {
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTab(tab.id)}
-                  className={`text-2xl font-semibold tracking-tight transition-colors ${
+                  className={`text-2xl font-semibold tracking-tight transition-colors cursor-pointer ${
                     activeTab === tab.id
                       ? "text-white"
                       : "text-zinc-600 hover:text-zinc-500"
-                  }`}>
+                  }`}
+                >
                   {tab.label}
                 </button>
               ))}
